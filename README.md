@@ -176,6 +176,67 @@ src/
 
 ---
 
+## 隐藏功能
+
+Claude Code 源码中包含大量未公开的隐藏功能，通过 `feature()` 编译时开关控制。本项目已成功启用以下功能：
+
+### 已启用功能（25个）
+
+| 功能 | 说明 |
+|------|------|
+| BUDDY | 宠物系统（18种物种、稀有度、闪光） |
+| KAIROS | 持久助手模式（会话持久化、自动记忆整理） |
+| ULTRAPLAN | 云端深度规划引擎 |
+| VOICE_MODE | 语音模式 |
+| PROACTIVE | 主动模式（无人交互时自动找活干） |
+| COORDINATOR_MODE | 多 Agent 协作（主 Claude 指挥 Worker） |
+| BRIDGE_MODE | 远程控制桥接 |
+| DAEMON | 后台守护进程 |
+| BG_SESSIONS | 后台会话管理 |
+| TORCH | - |
+| WORKFLOW_SCRIPTS | 工作流脚本 |
+| CCR_REMOTE_SETUP | 远程设置 |
+| FORK_SUBAGENT | Fork 子代理 |
+| VOICE | 语音 |
+| CHICAGO_MCP | MCP 支持 |
+| BYOC_ENVIRONMENT_RUNNER | BYOC 环境运行器 |
+| SELF_HOSTED_RUNNER | 自托管运行器 |
+| TEMPLATES | 模板 |
+| KAIROS_BRIEF | KAIROS 简报 |
+| KAIROS_PUSH_NOTIFICATION | 推送通知 |
+| KAIROS_GITHUB_WEBHOOKS | GitHub Webhooks |
+| KAIROS_CHANNELS | 频道 |
+| HISTORY_SNIP | 历史截断 |
+| EXPERIMENTAL_SKILL_SEARCH | 技能搜索 |
+
+### 启用方法
+
+```bash
+# 启用所有隐藏功能（推荐）
+node enable-full.cjs
+
+# 运行完整版
+bun ./src/entrypoints/cli.tsx
+
+# 如果 TUI 不显示，恢复原始状态
+git checkout -- src/
+```
+
+### 脚本说明
+
+| 脚本 | 说明 |
+|------|------|
+| `enable-full.cjs` | 启用全部 25 个隐藏功能（推荐） |
+| `enable-core.cjs` | 仅启用核心功能（BUDDY, PROACTIVE, COORDINATOR_MODE） |
+| `enable-safe.cjs` | 启用除问题功能外的所有功能 |
+| `enable-all.cjs` | 启用全部 26 个功能（UDS_INBOX 可能导致 TUI 崩溃） |
+
+### 功能发现过程
+
+通过二分查找和组合测试，发现 `UDS_INWIN` 功能在与其他功能组合时会导致 TUI 崩溃。详细测试过程略。
+
+---
+
 ## Disclaimer
 
 本仓库基于 2026-03-31 从 Anthropic npm registry 泄露的 Claude Code 源码。所有原始源码版权归 [Anthropic](https://www.anthropic.com) 所有。仅供学习和研究用途。
